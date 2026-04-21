@@ -1,0 +1,20 @@
+import { useEffect } from "react";
+import { useTodos } from "../context/TodoContext";
+import AddTodoForm from "../components/AddTodoForm";
+import TodoList from "../components/TodoList";
+
+export default function TodoPage() {
+  const { fetchTodos } = useTodos();
+
+  useEffect(() => {
+    fetchTodos();
+  }, [fetchTodos]);
+
+  return (
+    <div className="page-container">
+      <h1 className="page-title">Todo Manager</h1>
+      <AddTodoForm />
+      <TodoList />
+    </div>
+  );
+}

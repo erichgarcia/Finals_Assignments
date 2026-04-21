@@ -1,0 +1,78 @@
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  ReactNode,
+} from "react";
+import type { Todo } from "../types/todo";
+import { API_BASE } from "../api";
+
+type TodoContextType = {
+  todos: Todo[];
+  fetchTodos: () => Promise<void>;
+  addTodo: (title: string) => Promise<void>;
+  updateTodo: (id: string, data: { title: string; completed: boolean }) => Promise<void>;
+  deleteTodo: (id: string) => Promise<void>;
+};
+
+const TodoContext = createContext<TodoContextType | undefined>(undefined);
+
+export function TodoProvider({ children }: { children: ReactNode }) {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const fetchTodos = useCallback(async () => {
+    const res = await fetch(API_BASE);
+    if (res.ok) setTodos(await res.json());
+  }, []);
+
+  const addTodo = useCallback(async (title: string) => {
+    const res = await fetch(API_BASE, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, completed: false }),
+    });
+    if (res.ok) {
+      const created: Todo = await res.json();
+      // Immutable update — never mutate the array directly
+      setTodos((prev) => [...prev, created]);
+    }
+  }, []);
+
+  const updateTodo = useCallback(
+    async (id: string, data: { title: string; completed: boolean }) => {
+      const res = await fetch(`${API_BASE}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, ...data }),
+      });
+      if (res.ok) {
+        // FIX Bug 2: use .map() (not .filter()) to replace the updated item
+        setTodos((prev) =>
+          prev.map((t) => (t.id === id ? { ...t, ...data } : t))
+        );
+      }
+    },
+    []
+  );
+
+  const deleteTodo = useCallback(async (id: string) => {
+    const res = await fetch(`${API_BASE}/${id}`, { method: "DELETE" });
+    if (res.ok) {
+      // FIX Bug 1: filter by t.id (not t.title) to match the correct field
+      setTodos((prev) => prev.filter((t) => t.id !== id));
+    }
+  }, []);
+
+  return (
+    <TodoContext.Provider value={{ todos, fetchTodos, addTodo, updateTodo, deleteTodo }}>
+      {children}
+    </TodoContext.Provider>
+  );
+}
+
+export function useTodos(): TodoContextType {
+  const ctx = useContext(TodoContext);
+  if (!ctx) throw new Error("useTodos must be used within TodoProvider");
+  return ctx;
+}

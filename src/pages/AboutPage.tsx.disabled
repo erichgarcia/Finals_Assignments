@@ -1,0 +1,70 @@
+export default function AboutPage() {
+  return (
+    <div className="page-container">
+      <h1 className="page-title">About</h1>
+
+      <section className="about-section">
+        <h2>Project Overview</h2>
+        <p>
+          <strong>Finals_Q2</strong> is a production-grade Todo Management System built with
+          Vite, React, and TypeScript. It connects to a .NET 8 Web API backend (<strong>Finals_Q1</strong>)
+          to persist todo items in memory and demonstrates the full Phase 2 curriculum deliverables.
+        </p>
+      </section>
+
+      <section className="about-section">
+        <h2>Architectural Patterns</h2>
+        <ul>
+          <li><strong>Client-Side Routing</strong> — <code>react-router-dom v6</code> with <code>BrowserRouter</code>, <code>Routes</code>, and <code>NavLink</code> active styling.</li>
+          <li><strong>Context API</strong> — <code>ThemeContext</code> distributes the active theme globally; <code>TodoContext</code> abstracts all CRUD operations behind a clean interface.</li>
+          <li><strong>Custom Hook</strong> — <code>useTodos()</code> and <code>useTheme()</code> expose context values with runtime guards, preventing misuse outside providers.</li>
+          <li><strong>Uncontrolled Forms</strong> — <code>react-hook-form</code> powers <code>AddTodoForm</code>, avoiding unnecessary re-renders per keystroke.</li>
+          <li><strong>Immutable State Updates</strong> — state is updated using <code>.map()</code> and <code>.filter()</code>; the collection is never mutated directly.</li>
+          <li><strong>API-First Synchronization</strong> — local state is only updated after a successful (2xx) HTTP response from the backend.</li>
+        </ul>
+      </section>
+
+      <section className="about-section">
+        <h2>Technical Debt Remediation</h2>
+        <table className="audit-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Defect</th>
+              <th>Fix Applied</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Delete filtered by <code>t.title !== id</code> (wrong field)</td>
+              <td>Changed to <code>t.id !== id</code></td>
+              <td><code>TodoContext.tsx → deleteTodo</code></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Update used <code>.filter()</code> instead of <code>.map()</code></td>
+              <td>Changed to <code>prev.map(t =&gt; t.id === id ? &#123;…&#125; : t)</code></td>
+              <td><code>TodoContext.tsx → updateTodo</code></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>React list key was array index (<code>key=&#123;index&#125;</code>)</td>
+              <td>Changed to <code>key=&#123;t.id&#125;</code> (stable GUID)</td>
+              <td><code>TodoList.tsx</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section className="about-section">
+        <h2>Tech Stack</h2>
+        <ul>
+          <li>Frontend: Vite 8 · React 19 · TypeScript · react-router-dom · react-hook-form</li>
+          <li>Backend: .NET 8 Web API · In-memory List&lt;Todo&gt; · CORS for localhost:5173</li>
+        </ul>
+      </section>
+    </div>
+  );
+}

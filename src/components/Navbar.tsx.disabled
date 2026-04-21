@@ -1,0 +1,35 @@
+import { NavLink } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
+import "./Navbar.css";
+
+const THEMES = ["light", "dark", "ocean", "forest"] as const;
+
+export default function Navbar() {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <nav className="navbar">
+      <div className="navbar-links">
+        <NavLink to="/" end className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+          Todos
+        </NavLink>
+        <NavLink to="/about" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+          About
+        </NavLink>
+      </div>
+
+      <div className="navbar-themes">
+        {THEMES.map((t) => (
+          <button
+            key={t}
+            onClick={() => setTheme(t)}
+            className={`theme-btn theme-btn-${t}${theme === t ? " selected" : ""}`}
+            title={t.charAt(0).toUpperCase() + t.slice(1)}
+          >
+            {t.charAt(0).toUpperCase() + t.slice(1)}
+          </button>
+        ))}
+      </div>
+    </nav>
+  );
+}

@@ -1,0 +1,289 @@
+/* -- Reset ------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; }
+
+/* -- Theme Variables --------------------------------------------------- */
+.theme-light {
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --text: #212529;
+  --text-muted: #6c757d;
+  --accent: #0d6efd;
+  --accent-hover: #0a58ca;
+  --danger: #dc3545;
+  --success: #198754;
+  --border: #dee2e6;
+  --navbar-bg: #ffffff;
+  --navbar-border: #dee2e6;
+  --navbar-text: #212529;
+  --navbar-hover: #e9ecef;
+  --input-bg: #ffffff;
+  --input-border: #ced4da;
+  --modal-overlay: rgba(0,0,0,0.4);
+}
+
+.theme-dark {
+  --bg: #1e1e2e;
+  --surface: #2a2a3d;
+  --text: #cdd6f4;
+  --text-muted: #a6adc8;
+  --accent: #89b4fa;
+  --accent-hover: #74a8f7;
+  --danger: #f38ba8;
+  --success: #a6e3a1;
+  --border: #45475a;
+  --navbar-bg: #181825;
+  --navbar-border: #45475a;
+  --navbar-text: #cdd6f4;
+  --navbar-hover: #313244;
+  --input-bg: #313244;
+  --input-border: #45475a;
+  --modal-overlay: rgba(0,0,0,0.65);
+}
+
+.theme-ocean {
+  --bg: #0a3a5c;
+  --surface: #0d4f8b;
+  --text: #e0f2fe;
+  --text-muted: #bae6fd;
+  --accent: #38bdf8;
+  --accent-hover: #0ea5e9;
+  --danger: #fb7185;
+  --success: #34d399;
+  --border: #1d6fa4;
+  --navbar-bg: #072d4a;
+  --navbar-border: #1d6fa4;
+  --navbar-text: #e0f2fe;
+  --navbar-hover: #0d4f8b;
+  --input-bg: #0d4f8b;
+  --input-border: #1d6fa4;
+  --modal-overlay: rgba(0,0,0,0.6);
+}
+
+.theme-forest {
+  --bg: #0f3324;
+  --surface: #1a4731;
+  --text: #d1fae5;
+  --text-muted: #a7f3d0;
+  --accent: #34d399;
+  --accent-hover: #10b981;
+  --danger: #fb7185;
+  --success: #6ee7b7;
+  --border: #2d6a4f;
+  --navbar-bg: #0a2118;
+  --navbar-border: #2d6a4f;
+  --navbar-text: #d1fae5;
+  --navbar-hover: #1a4731;
+  --input-bg: #1a4731;
+  --input-border: #2d6a4f;
+  --modal-overlay: rgba(0,0,0,0.6);
+}
+
+/* -- Base styles (consume variables) ----------------------------------- */
+[class^="theme-"] {
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.25s, color 0.25s;
+}
+
+/* -- Layout ------------------------------------------------------------ */
+.main-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* -- Form -------------------------------------------------------------- */
+.add-todo-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.todo-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid var(--input-border);
+  border-radius: 6px;
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.todo-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.todo-input.input-error { border-color: var(--danger); }
+
+.error-msg {
+  width: 100%;
+  font-size: 0.82rem;
+  color: var(--danger);
+}
+
+/* -- Buttons ----------------------------------------------------------- */
+.btn {
+  padding: 0.45rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.2s, opacity 0.2s;
+}
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.btn-primary   { background: var(--accent);   color: #fff; }
+.btn-primary:hover:not(:disabled)  { background: var(--accent-hover); }
+
+.btn-secondary { background: var(--border);   color: var(--text); }
+.btn-secondary:hover:not(:disabled) { opacity: 0.85; }
+
+.btn-sm { padding: 0.3rem 0.65rem; font-size: 0.82rem; }
+
+.btn-toggle { background: var(--accent);  color: #fff; }
+.btn-toggle:hover { background: var(--accent-hover); }
+
+.btn-edit   { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+.btn-edit:hover { opacity: 0.85; }
+
+.btn-delete { background: var(--danger);  color: #fff; }
+.btn-delete:hover { opacity: 0.85; }
+
+/* -- Todo List --------------------------------------------------------- */
+.todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  flex-wrap: wrap;
+}
+
+.todo-item.completed .todo-title {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.todo-title {
+  flex: 1;
+  font-size: 1rem;
+}
+
+.todo-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.badge-done    { background: var(--success); color: #fff; }
+.badge-pending { background: var(--border);  color: var(--text-muted); }
+
+.todo-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.empty-msg {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* -- Modal ------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2rem;
+  width: min(480px, 90vw);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* -- About page -------------------------------------------------------- */
+.about-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+}
+
+.about-section h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: var(--accent);
+}
+
+.about-section p, .about-section li {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.about-section ul { padding-left: 1.25rem; }
+.about-section li { margin-bottom: 0.4rem; }
+
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.audit-table th, .audit-table td {
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.7rem;
+  text-align: left;
+}
+
+.audit-table th {
+  background: var(--bg);
+  font-weight: 700;
+}
