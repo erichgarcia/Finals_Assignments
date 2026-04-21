@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
-type Theme = "midnight" | "emerald" | "solarized";
+type Theme = "corporate" | "slate" | "light";
 
 type ThemeContextType = {
   theme: Theme;
@@ -11,49 +11,49 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const themes = {
-  midnight: {
-    name: "Midnight",
+  corporate: {
+    name: "Corporate Blue",
     colors: {
-      background: "#0a0e1a",
-      surface: "#1a1f2e",
-      primary: "#4a9eff",
-      secondary: "#6c5ce7",
-      text: "#e4e6eb",
-      textSecondary: "#b0b3b8",
-      accent: "#00d4ff",
-      border: "#2d3748"
+      background: "#0f172a",
+      surface: "#1e293b",
+      primary: "#2563eb",
+      secondary: "#1d4ed8",
+      text: "#e2e8f0",
+      textSecondary: "#94a3b8",
+      accent: "#38bdf8",
+      border: "#334155"
     }
   },
-  emerald: {
-    name: "Emerald",
+  slate: {
+    name: "Slate Gray",
     colors: {
-      background: "#0a1f0a",
-      surface: "#1a2e1a",
-      primary: "#10b981",
-      secondary: "#059669",
-      text: "#d1fae5",
-      textSecondary: "#6ee7b7",
-      accent: "#34d399",
-      border: "#065f46"
+      background: "#111827",
+      surface: "#1f2933",
+      primary: "#4b5563",
+      secondary: "#374151",
+      text: "#e5e7eb",
+      textSecondary: "#9ca3af",
+      accent: "#6b7280",
+      border: "#374151"
     }
   },
-  solarized: {
-    name: "Solarized",
+  light: {
+    name: "Light Professional",
     colors: {
-      background: "#002b36",
-      surface: "#073642",
-      primary: "#268bd2",
-      secondary: "#6c71c4",
-      text: "#839496",
-      textSecondary: "#657b83",
-      accent: "#2aa198",
-      border: "#586e75"
+      background: "#f8fafc",
+      surface: "#ffffff",
+      primary: "#2563eb",
+      secondary: "#64748b",
+      text: "#1e293b",
+      textSecondary: "#475569",
+      accent: "#0ea5e9",
+      border: "#e2e8f0"
     }
   }
 };
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("midnight");
+  const [theme, setTheme] = useState<Theme>("corporate");
 
   const toggleTheme = () => {
     const themeKeys = Object.keys(themes) as Theme[];
