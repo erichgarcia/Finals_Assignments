@@ -1,0 +1,106 @@
+.contact-form-section {
+  background-color: var(--color-surface, #1a1f2e);
+  border: 1px solid var(--color-border, #2d3748);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.3s ease;
+}
+
+.contact-form-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--color-primary, #4a9eff);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text, #e4e6eb);
+}
+
+.form-input,
+.form-textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border, #2d3748);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--color-text, #e4e6eb);
+  background-color: var(--color-background, #0a0e1a);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  resize: vertical;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary, #4a9eff);
+  box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.15);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--color-text-secondary, #b0b3b8);
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary, #4a9eff), var(--color-secondary, #6c5ce7));
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(74, 158, 255, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Theme-specific enhancements */
+[data-theme="midnight"] .contact-form-section {
+  box-shadow: 0 10px 15px -3px rgba(74, 158, 255, 0.2);
+}
+
+[data-theme="emerald"] .contact-form-section {
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+}
+
+[data-theme="solarized"] .contact-form-section {
+  box-shadow: 0 10px 15px -3px rgba(38, 139, 210, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact-form-section {
+    padding: 1.5rem;
+    margin: 0 1rem 2rem 1rem;
+  }
+}

@@ -1,13 +1,22 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Home from './pages/Home'
+import About from './pages/About'
+import Contact from './pages/Contact'
+import NotFound from './pages/NotFound'
 
 export default function App() {
   return (
-    <div>
-      <h1>Finals Assignment</h1>
-      <Routes>
-        <Route path="/" element={<div><h2>Home</h2><p>Todo functionality will be continued...</p></div>} />
-        <Route path="/about" element={<div><h2>About</h2><p>About functionality will be continued...</p></div>} />
-      </Routes>
-    </div>
-  );
+    <>
+      <Navbar />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+    </>
+  )
 }
